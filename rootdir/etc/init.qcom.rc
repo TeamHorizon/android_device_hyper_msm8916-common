@@ -351,6 +351,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -365,6 +366,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
@@ -443,6 +445,7 @@ service audiod /system/bin/audiod
    class late_start
    user system
    group system
+   writepid /dev/cpuset/foreground/tasks
 
 service ppd /system/bin/mm-pp-daemon
     class late_start
@@ -450,6 +453,7 @@ service ppd /system/bin/mm-pp-daemon
     user system
     socket pps stream 0660 system system
     group system graphics
+    writepid /dev/cpuset/foreground/tasks
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
